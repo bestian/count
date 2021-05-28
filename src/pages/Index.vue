@@ -5,6 +5,14 @@
     </div>
     <q-input v-model="ans" placeholder="共有多少?"/>
     <q-btn @click="check()">送出!</q-btn>
+    <q-circular-progress
+      :value="value"
+      size="50px"
+      :thickness="1"
+      color="orange"
+      track-color="grey-8"
+      class="q-ma-md"
+    />
   </q-page>
 </template>
 
@@ -15,14 +23,21 @@ export default {
   data () {
     return {
       items: [3,3,3,3],
-      ans: null
+      ans: null,
+      value: 0,
+      win: false
     }
   },
   methods: {
     check () {
       if (this.ans == this.items[0] * this.items.length) {
         alert('對了!')
+        this.value += 10
         this.reset()
+      }
+      if (this.value == 100) {
+        this.value = 0
+        this.win = true
       }
     },
     reset() {
