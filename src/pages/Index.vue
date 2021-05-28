@@ -12,6 +12,13 @@
       color="orange"
       track-color="grey-8"
       class="q-ma-md"
+    /><q-circular-progress
+      :value="right / (right + wrong) * 100"
+      size="50px"
+      :thickness="1"
+      color="green"
+      track-color="grey-8"
+      class="q-ma-md"
     />
   </q-page>
 </template>
@@ -25,19 +32,26 @@ export default {
       items: [3,3,3,3],
       ans: null,
       value: 0,
-      win: false
+      win: false,
+      right: 0,
+      wrong: 0
     }
   },
   methods: {
     check () {
       if (this.ans == this.items[0] * this.items.length) {
-        alert('對了!')
+        // alert('對了!')
         this.value += 10
+        this.right++
         this.reset()
+      } else {
+        this.wrong++
       }
       if (this.value == 100) {
         this.value = 0
         this.win = true
+        this.right = 0
+        this.wrong = 0
       }
     },
     reset() {
