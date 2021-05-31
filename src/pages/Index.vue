@@ -4,7 +4,7 @@
       <div class="box" v-for="(i,idx) in items" :key="idx">
         {{ i }}
       </div>
-      <q-input v-model="ans" placeholder="共有多少?"/>
+      <q-input v-model="ans" placeholder="共有多少?" @keyup.enter ="check()"/>
       <q-btn @click="check()">送出!</q-btn>
     </div>
     <div v-else>
