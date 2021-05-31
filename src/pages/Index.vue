@@ -91,7 +91,7 @@ export default {
   },
   mounted () {
     this.reset()
-    setInterval(this.go, 100)
+    setInterval(this.go, 500)
   },
   watch: {
     l (val) {
