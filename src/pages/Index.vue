@@ -9,7 +9,7 @@
     </div>
     <div v-else>
       <div class="score">答對率{{Math.round(right / (right + wrong) * 100)}}%</div>
-      <q-btn @click="reset()">重來!</q-btn>
+      <q-btn @click="resetAll()">重來!</q-btn>
     </div>
     <q-circular-progress
       :value="value"
@@ -87,6 +87,11 @@ export default {
       for (var i = 0; i < l; i++) {
         this.items.push(n)
       }
+    },
+    resetAll() {
+      this.right = 0;
+      this.wrong = 0;
+      this.reset()
     }
   },
   mounted () {
