@@ -11,28 +11,39 @@
       <div class="score">答對率{{Math.round(right / (right + wrong) * 100)}}%</div>
       <q-btn @click="resetAll()">重來!</q-btn>
     </div>
-    <q-circular-progress
-      :value="value"
-      size="50px"
-      :thickness="1"
-      color="orange"
-      track-color="grey-8"
-      class="q-ma-md"
-    /><q-circular-progress
-      :value="right / (right + wrong) * 100"
-      size="50px"
-      :thickness="1"
-      color="green"
-      track-color="grey-8"
-      class="q-ma-md"
-    /><q-circular-progress
-      :value="timer"
-      size="50px"
-      :thickness="1"
-      color="red"
-      track-color="grey-8"
-      class="q-ma-md"
-    />
+    <div>
+      <q-circular-progress
+        :value="value"
+        size="50px"
+        :thickness="1"
+        color="orange"
+        track-color="grey-8"
+        class="q-ma-md"
+      />
+      <div class="left">進程</div>
+    </div>
+    <div>
+      <q-circular-progress
+        :value="right / (right + wrong) * 100"
+        size="50px"
+        :thickness="1"
+        color="green"
+        track-color="grey-8"
+        class="q-ma-md"
+      />
+      <div class="left">答對率</div>
+    </div>
+    <div>
+      <q-circular-progress
+        :value="timer"
+        size="50px"
+        :thickness="1"
+        color="red"
+        track-color="grey-8"
+        class="q-ma-md"
+      />
+      <div class="left">時間</div>
+    </div>
   </q-page>
 </template>
 
@@ -123,6 +134,10 @@ export default {
     height: 100px;
     font-size: 26px;
     border: 1px solid black;
+  }
+
+  .left {
+    margin-left: 1.5em;
   }
 
 </style>
