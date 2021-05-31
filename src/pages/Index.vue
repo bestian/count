@@ -1,10 +1,16 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="box" v-for="(i,idx) in items" :key="idx">
-      {{ i }}
+    <div v-if ="!win">
+      <div class="box" v-for="(i,idx) in items" :key="idx">
+        {{ i }}
+      </div>
+      <q-input v-model="ans" placeholder="共有多少?"/>
+      <q-btn @click="check()">送出!</q-btn>
     </div>
-    <q-input v-model="ans" placeholder="共有多少?"/>
-    <q-btn @click="check()">送出!</q-btn>
+    <div v-else>
+      <div class="score">答對率{{Math.round(right / (right + wrong) * 100)}}%</div>
+      <q-btn @click="reset()">重來!</q-btn>
+    </div>
     <q-circular-progress
       :value="value"
       size="50px"
@@ -17,6 +23,13 @@
       size="50px"
       :thickness="1"
       color="green"
+      track-color="grey-8"
+      class="q-ma-md"
+    /><q-circular-progress
+      :value="timer"
+      size="50px"
+      :thickness="1"
+      color="red"
       track-color="grey-8"
       class="q-ma-md"
     />
@@ -32,29 +45,41 @@ export default {
       items: [3,3,3,3],
       ans: null,
       value: 0,
+      timer: 0,
       win: false,
       right: 0,
       wrong: 0
     }
   },
   methods: {
+    go () {
+      if (!this.win) {
+        this.timer++
+      }
+      if (this.timer >= 100) {
+        this.check()
+        this.timer = 0
+      }
+    },
     check () {
+      if (this.win) { return }
       if (this.ans == this.items[0] * this.items.length) {
         // alert('對了!')
         this.value += 10
         this.right++
         this.reset()
       } else {
+        this.value += 10
         this.wrong++
       }
       if (this.value == 100) {
-        this.value = 0
         this.win = true
-        this.right = 0
-        this.wrong = 0
+        this.value = 0
       }
+      this.timer = 0
     },
     reset() {
+      this.win = false;
       this.ans = null;
       let l = Math.floor(Math.random()*this.l)+1
       let n = Math.floor(Math.random()*this.n)+1
@@ -66,6 +91,7 @@ export default {
   },
   mounted () {
     this.reset()
+    setInterval(this.go, 100)
   },
   watch: {
     l (val) {
