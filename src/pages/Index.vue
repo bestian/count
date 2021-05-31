@@ -63,7 +63,11 @@ export default {
     },
     check () {
       if (this.win) { return }
-      if (this.ans == this.items[0] * this.items.length) {
+      var sum = 0;
+      for (var i = 0; i < this.items.length; i++) {
+        sum += this.items[i]
+      }
+      if (this.ans == sum) {
         // alert('對了!')
         this.value += 10
         this.right++
@@ -85,7 +89,7 @@ export default {
       let n = Math.floor(Math.random()*this.n)+1
       this.items = []
       for (var i = 0; i < l; i++) {
-        this.items.push(n)
+        this.items.push(Math.floor(Math.random()*n)+1)
       }
     },
     resetAll() {
